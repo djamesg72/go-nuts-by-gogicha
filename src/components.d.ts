@@ -6,56 +6,85 @@
 
 
 import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
-import {
-  MatchResults,
-} from '@stencil/router';
+
 
 export namespace Components {
-  interface AppHome {}
-  interface AppProfile {
-    'match': MatchResults;
+  interface GWolf {
+    'position': 'left-top' | 'right-top' | 'left-bottom' | 'right-bottom';
   }
-  interface AppRoot {}
+  interface MyComponent {
+    /**
+    * The first name
+    */
+    'first': string;
+    /**
+    * The last name
+    */
+    'last': string;
+    /**
+    * The middle name
+    */
+    'middle': string;
+  }
+  interface NavButton {
+    'direction': 'left-top' | 'right-top' | 'left-bottom' | 'right-bottom';
+  }
 }
 
 declare global {
 
 
-  interface HTMLAppHomeElement extends Components.AppHome, HTMLStencilElement {}
-  var HTMLAppHomeElement: {
-    prototype: HTMLAppHomeElement;
-    new (): HTMLAppHomeElement;
+  interface HTMLGWolfElement extends Components.GWolf, HTMLStencilElement {}
+  var HTMLGWolfElement: {
+    prototype: HTMLGWolfElement;
+    new (): HTMLGWolfElement;
   };
 
-  interface HTMLAppProfileElement extends Components.AppProfile, HTMLStencilElement {}
-  var HTMLAppProfileElement: {
-    prototype: HTMLAppProfileElement;
-    new (): HTMLAppProfileElement;
+  interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {}
+  var HTMLMyComponentElement: {
+    prototype: HTMLMyComponentElement;
+    new (): HTMLMyComponentElement;
   };
 
-  interface HTMLAppRootElement extends Components.AppRoot, HTMLStencilElement {}
-  var HTMLAppRootElement: {
-    prototype: HTMLAppRootElement;
-    new (): HTMLAppRootElement;
+  interface HTMLNavButtonElement extends Components.NavButton, HTMLStencilElement {}
+  var HTMLNavButtonElement: {
+    prototype: HTMLNavButtonElement;
+    new (): HTMLNavButtonElement;
   };
   interface HTMLElementTagNameMap {
-    'app-home': HTMLAppHomeElement;
-    'app-profile': HTMLAppProfileElement;
-    'app-root': HTMLAppRootElement;
+    'g-wolf': HTMLGWolfElement;
+    'my-component': HTMLMyComponentElement;
+    'nav-button': HTMLNavButtonElement;
   }
 }
 
 declare namespace LocalJSX {
-  interface AppHome extends JSXBase.HTMLAttributes<HTMLAppHomeElement> {}
-  interface AppProfile extends JSXBase.HTMLAttributes<HTMLAppProfileElement> {
-    'match'?: MatchResults;
+  interface GWolf extends JSXBase.HTMLAttributes<HTMLGWolfElement> {
+    'position'?: 'left-top' | 'right-top' | 'left-bottom' | 'right-bottom';
   }
-  interface AppRoot extends JSXBase.HTMLAttributes<HTMLAppRootElement> {}
+  interface MyComponent extends JSXBase.HTMLAttributes<HTMLMyComponentElement> {
+    /**
+    * The first name
+    */
+    'first'?: string;
+    /**
+    * The last name
+    */
+    'last'?: string;
+    /**
+    * The middle name
+    */
+    'middle'?: string;
+  }
+  interface NavButton extends JSXBase.HTMLAttributes<HTMLNavButtonElement> {
+    'direction'?: 'left-top' | 'right-top' | 'left-bottom' | 'right-bottom';
+    'onGChooseDirection'?: (event: CustomEvent<any>) => void;
+  }
 
   interface IntrinsicElements {
-    'app-home': AppHome;
-    'app-profile': AppProfile;
-    'app-root': AppRoot;
+    'g-wolf': GWolf;
+    'my-component': MyComponent;
+    'nav-button': NavButton;
   }
 }
 

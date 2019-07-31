@@ -6,7 +6,7 @@
     "experimentalDecorators": true,
     "lib": [
       "dom",
-      "es2015"
+      "es2017"
     ],
     "moduleResolution": "node",
     "module": "esnext",
@@ -14,11 +14,11 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "jsx": "react",
-    "jsxFactory": "h",
-    "resolveJsonModule": true,
+    "jsxFactory": "h"
   },
   "include": [
-    "src"
+    "src",
+    "types/jsx.d.ts"
   ],
   "exclude": [
     "node_modules"
