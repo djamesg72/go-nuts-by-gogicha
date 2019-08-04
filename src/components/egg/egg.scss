@@ -1,0 +1,29 @@
+:host {
+  display: block;
+  position: absolute;
+  transform-origin: center center;
+
+  img {
+    display: block;
+  }
+}
+
+// :host(.left-top) {
+//   top:  73px;
+//   left: 20px;
+// }
+
+// :host(.left-bottom) {
+//   top: 133px;
+//   left: 20px;
+// }
+
+// :host(.right-top) {
+//   top: 73px;
+//   right: 20px;
+// }
+
+// :host(.right-bottom) {
+//   top: 133px;
+//   right: 20px;
+// }

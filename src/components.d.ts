@@ -6,11 +6,18 @@
 
 
 import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
-
+import {
+  WolfPosition,
+} from './components/wolf/wolf.model';
 
 export namespace Components {
+  interface GApp {}
+  interface GEgg {
+    'nest': number;
+    'wolfPosition': 'left-top' | 'left-bottom' | 'right-top' | 'right-bottom';
+  }
   interface GWolf {
-    'position': 'left-top' | 'right-top' | 'left-bottom' | 'right-bottom';
+    'position': WolfPosition;
   }
   interface MyComponent {
     /**
@@ -34,6 +41,18 @@ export namespace Components {
 declare global {
 
 
+  interface HTMLGAppElement extends Components.GApp, HTMLStencilElement {}
+  var HTMLGAppElement: {
+    prototype: HTMLGAppElement;
+    new (): HTMLGAppElement;
+  };
+
+  interface HTMLGEggElement extends Components.GEgg, HTMLStencilElement {}
+  var HTMLGEggElement: {
+    prototype: HTMLGEggElement;
+    new (): HTMLGEggElement;
+  };
+
   interface HTMLGWolfElement extends Components.GWolf, HTMLStencilElement {}
   var HTMLGWolfElement: {
     prototype: HTMLGWolfElement;
@@ -52,6 +71,8 @@ declare global {
     new (): HTMLNavButtonElement;
   };
   interface HTMLElementTagNameMap {
+    'g-app': HTMLGAppElement;
+    'g-egg': HTMLGEggElement;
     'g-wolf': HTMLGWolfElement;
     'my-component': HTMLMyComponentElement;
     'nav-button': HTMLNavButtonElement;
@@ -59,8 +80,18 @@ declare global {
 }
 
 declare namespace LocalJSX {
+  interface GApp extends JSXBase.HTMLAttributes<HTMLGAppElement> {
+    'onGameOver'?: (event: CustomEvent<void>) => void;
+    'onGamePaused'?: (event: CustomEvent<boolean>) => void;
+  }
+  interface GEgg extends JSXBase.HTMLAttributes<HTMLGEggElement> {
+    'nest'?: number;
+    'onEggIsCathced'?: (event: CustomEvent<any>) => void;
+    'wolfPosition'?: 'left-top' | 'left-bottom' | 'right-top' | 'right-bottom';
+  }
   interface GWolf extends JSXBase.HTMLAttributes<HTMLGWolfElement> {
-    'position'?: 'left-top' | 'right-top' | 'left-bottom' | 'right-bottom';
+    'onWolfDirectionChange'?: (event: CustomEvent<WolfPosition>) => void;
+    'position'?: WolfPosition;
   }
   interface MyComponent extends JSXBase.HTMLAttributes<HTMLMyComponentElement> {
     /**
@@ -82,6 +113,8 @@ declare namespace LocalJSX {
   }
 
   interface IntrinsicElements {
+    'g-app': GApp;
+    'g-egg': GEgg;
     'g-wolf': GWolf;
     'my-component': MyComponent;
     'nav-button': NavButton;
