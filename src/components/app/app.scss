@@ -44,7 +44,7 @@
 }
 
 .screen {
-  background-image: url('../assets/img/background.jpg');
+  background-image: url('assets/img/background.jpg');
   width: 412px;
   height: 270px;
   position: relative;
@@ -147,7 +147,7 @@
 
 .game-won {
   color: white;
-  background-image: url('../assets/img/win.gif');
+  background-image: url('assets/img/win.gif');
   height: 100%;
   transform: translateY(-133px);
   background-size: cover;
@@ -174,15 +174,15 @@
 
 @keyframes rabbit {
   0% {
-    background-image: url("../assets/img/rabbit1.png");
+    background-image: url("assets/img/rabbit1.png");
   }
 
   50% {
-    background-image: url("../assets/img/rabbit2.png");
+    background-image: url("assets/img/rabbit2.png");
   }
 
   100% {
-    background-image: url("../assets/img/rabbit1.png");
+    background-image: url("assets/img/rabbit1.png");
   }
 }
 
