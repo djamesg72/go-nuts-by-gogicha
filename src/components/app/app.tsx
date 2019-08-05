@@ -191,7 +191,7 @@ export class MyComponent {
       if (this.score === 100) {
         this.isWon = true;
       }
-      e.detail.el.remove(); // TODO: remove states for broken
+      e.detail.el.remove();
     } else {
       this.lose++;
       if (this.lose === 3) {

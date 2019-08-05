@@ -52,7 +52,6 @@ export class MyComponent {
   }
 
   componentWillLoad() {
-    console.log('wolf', this.position);
     this.wolfDirectionChange.emit(this.position);
   }
 

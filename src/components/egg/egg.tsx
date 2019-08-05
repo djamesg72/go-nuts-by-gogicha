@@ -13,6 +13,7 @@ export class MyComponent {
   @Prop() eggMoveDuration = 1000;
 
   @State() step = 1;
+  @State() birdIsShown: boolean = false;
 
   @Event() eggIsCathced: EventEmitter;
 
@@ -25,10 +26,12 @@ export class MyComponent {
     4: 'right-bottom',
   }
   isCatching: boolean;
+  xSide = (this.nest === 1 || this.nest === 3)
+      ? 'left'
+      : 'right';
 
   @Watch('eggMoveDuration')
   changeTimer() {
-    console.log('EGG change game duration EGG ', this.eggMoveDuration);
     clearInterval(this.eggMoveTimer);
     this.startEggMoving();
   }
@@ -58,28 +61,41 @@ export class MyComponent {
     this.checkCathcing(e.detail);
   }
 
+  showBird() {
+    let bird = setTimeout(() => {
+      this.birdIsShown = false;
+      clearTimeout(bird);
+    }, 3000);
+  }
+
   startEggMoving() {
-    console.log('EGG duration EGG ', this.eggMoveDuration);
     this.eggMoveTimer = window.setInterval(() => {
-        if (this.step === 6) {
-          clearInterval(this.eggMoveTimer);
-          this.el.remove;
-        } else {
-          if (this.step === 5) {
-            if (this.isCatching) {
-              this.eggIsCathced.emit({
-                catched: true,
-                el: this.el
-              });
-            } else {
-              this.eggIsCathced.emit({
-                catched: false,
-                el: this.el
-              });
-            }
+      if (this.step === 10) {
+        clearInterval(this.eggMoveTimer);
+        this.el.remove;
+      } else {
+
+        if (this.step === 5) {
+          if (this.isCatching) {
+            this.eggIsCathced.emit({
+              catched: true,
+              el: this.el
+            });
+
+          } else {
+            this.eggIsCathced.emit({
+              catched: false,
+              el: this.el
+            });
+            this.birdIsShown = true;
+            this.showBird();
           }
+
+          this.step = 10;
+        } else {
           this.step++;
         }
+      }
     }, this.eggMoveDuration);
   }
 
@@ -90,9 +106,6 @@ export class MyComponent {
   }
 
   generateStyleObject() {
-    let xSide = (this.nest === 1 || this.nest === 3)
-      ? 'left'
-      : 'right';
     let yOffset = (this.nest === 3 || this.nest === 4)
       ? (this.nest === 4 )
         ? 58
@@ -103,31 +116,31 @@ export class MyComponent {
 
     this.stepStyleObject = {
       1: {
-        [xSide]: '22px',
+        [this.xSide]: '22px',
         top: `${ 75 + yOffset }px`,
         transform: `rotate(${this.setDegree(45)}deg)`,
       },
       2: {
-        [xSide]: '35px',
+        [this.xSide]: '35px',
         top: `${ 84 + yOffset}px`,
         transform: `rotate(${this.setDegree(90)}deg)`
       },
       3: {
-        [xSide]: '50px',
+        [this.xSide]: '50px',
         top: `${ 93 + yOffset}px`,
         transform: `rotate(${this.setDegree(135)}deg)`
       },
       4: {
-        [xSide]: '65px',
+        [this.xSide]: '65px',
         top: `${ 102 + yOffset}px`,
         transform: `rotate(${this.setDegree(-90)}deg)`
       },
       5: {
-        [xSide]: '80px',
+        [this.xSide]: '80px',
         top: `${ 111 + yOffset}px`,
         transform: `rotate(${this.setDegree(-25)}deg)`
       },
-      6: {
+      10: {
         display: 'none',
       }
     };
@@ -147,10 +160,12 @@ export class MyComponent {
   }
 
   render() {
-    // console.log('render');
     return(
-      <Host class={ this.nestTitle[this.nest] } style={this.stepStyleObject[this.step]}>
-        <img src="assets/img/egg.png" alt="egg"/>
+      <Host>
+        <img style={this.stepStyleObject[this.step]} src="assets/img/egg.png" alt="egg"/>
+        <div class="bird-container">
+          <div class={ `bird ${this.birdIsShown ? `bird-${this.xSide}` : ''}` }></div>
+        </div>
       </Host>
     );
   }

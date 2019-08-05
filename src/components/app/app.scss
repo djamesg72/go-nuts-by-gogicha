@@ -15,8 +15,6 @@
   border-radius: 12px;
   box-shadow: 8px 8px 2px 1px;
   box-sizing: border-box;
-
-
 }
 
 .game-container-left {
@@ -35,7 +33,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  // margin-top: auto;
 }
 
 .game-container-center {
@@ -71,10 +68,7 @@
   position: absolute;
   width: 452px;
   height: 310px;
-  /* left: -20px;
-    top: -20px; */
   border-radius: 8px;
-  /* border: solid 2px black; */
 }
 
 .border-left {
@@ -138,9 +132,7 @@
   top: 50%;
   text-align: center;
   width: 100%;
-  transform: translateY(-35px);
   z-index: 1000;
-  line-height: 70px;
   font-size: 40px;
   font-weight: 700;
   font-family: 'Open Sans';
@@ -149,11 +141,17 @@
 .game-over {
   color: red;
   background: brown;
+  transform: translateY(-35px);
+  line-height: 70px;
 }
 
 .game-won {
-  color: darkorange;
-  background: green;
+  color: white;
+  background-image: url('../assets/img/win.gif');
+  height: 100%;
+  transform: translateY(-133px);
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .eggs-container {
@@ -176,15 +174,15 @@
 
 @keyframes rabbit {
   0% {
-      background-image: url("../assets/img/rabbit1.png");
+    background-image: url("../assets/img/rabbit1.png");
   }
 
   50% {
-      background-image: url("../assets/img/rabbit2.png");
+    background-image: url("../assets/img/rabbit2.png");
   }
 
   100% {
-      background-image: url("../assets/img/rabbit1.png");
+    background-image: url("../assets/img/rabbit1.png");
   }
 }
 
@@ -209,9 +207,10 @@
   line-height: 24px;
   outline: none;
 
-  &:hover, :active, :focus {
+  &:hover,
+  :active,
+  :focus {
     cursor: pointer;
     background-color: darken($color: darkred, $amount: 5%)
   }
 }
-
