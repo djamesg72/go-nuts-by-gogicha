@@ -1,4 +1,4 @@
-import { Component, h, Host, State, Event, EventEmitter, Listen, Watch } from '@stencil/core';
+import { Component, h, Host, Prop, State, Event, EventEmitter, Listen, Watch } from '@stencil/core';
 
 @Component({
   tag: 'g-app',
@@ -6,55 +6,112 @@ import { Component, h, Host, State, Event, EventEmitter, Listen, Watch } from '@
   shadow: true
 })
 export class MyComponent {
-  // @Prop({ mutable: true }) nest: string;
+  @Prop() devMode: boolean = false;
 
   @State() paused: boolean = false;
+  /**
+   * for dev-mode
+   */
   @State() gameStarted: boolean = false;
   @State() score: number = 0;
   @State() lose: number = 0;
+  @State() isWon: boolean = false;
+  @State() showRabbit: boolean = false;
   @State() isGameOver: boolean = false;
+  @State() eggDuration: number = 6000;
   @State() eggs: number = 0;
+  @State() eggMoveDuration = 1000;
+  @State() isDifficult: boolean;
 
+  /**
+   * for dev-mode
+   */
   @Event() gamePaused: EventEmitter<boolean>;
   @Event() gameOver: EventEmitter<void>;
+  @Event() gameWon: EventEmitter<void>;
 
-  eggDuration = 6000;
   gameTimer: number;
   eggsContainer: HTMLDivElement;
   loseContainer: HTMLDivElement;
   wolf: HTMLGWolfElement;
-
-  // eggs: Array<HTMLGEggElement> = [];
 
   @Watch('isGameOver')
   gameOverWatcher() {
     this.deleteTimer();
     this.gameOver.emit();
   }
+
+  @Watch('isWon')
+  gameWonWatcher() {
+    this.deleteTimer();
+    this.gameWon.emit();
+  }
+
+  @Watch('eggDuration')
+  changeTimer() {
+    if (this.gameStarted) {
+      this.showRabbit = true;
+      this.showRabitDuration();
+    }
+
+    this.deleteTimer();
+    this.createTimer();
+  }
+
+  showRabitDuration() {
+    let rabbit = setTimeout(() => {
+      this.showRabbit = false;
+      clearTimeout(rabbit);
+    }, 1200);
+  }
+
   @Watch('eggs')
   increaseSpeed() {
+   let offset = this.isDifficult ? 0 : 10;
     switch (this.eggs) {
-      case 5:
-        console.log('change game duration');
+      case 1 :
         this.eggDuration = 6000;
-        this.changeDuration();
         break;
-      case 10:
-        console.log('change game duration');
+      case (6 + offset):
         this.eggDuration = 5000;
-        this.changeDuration();
         break;
-      case 15:
-        console.log('change game duration');
+      case (11 + offset * 2):
+        this.eggDuration = 4500;
+        this.eggMoveDuration = 900;
+        break;
+      case (21 + offset * 3):
         this.eggDuration = 4000;
-        this.changeDuration();
+        this.eggMoveDuration = 800;
         break;
-      case 20:
-        console.log('change game duration');
-        this.changeDuration();
-        this.eggDuration = 3000
+      case (26 + offset * 5):
+        this.eggDuration = 3000;
+        this.eggMoveDuration = 600;
         break;
-  }
+      case (31 + offset * 6):
+        this.eggDuration = 2700;
+        this.eggMoveDuration = 900;
+        break;
+      case (36 + offset * 8):
+        this.eggDuration = 2400;
+        this.eggMoveDuration = 800;
+        break;
+      case (46 + offset * 9):
+        this.eggDuration = 1800;
+        this.eggMoveDuration = 600;
+        break;
+      case (56 + offset * 12):
+        this.eggDuration = 1800;
+        this.eggMoveDuration = 900;
+        break;
+      case (66 + offset * 14):
+        this.eggDuration = 1600;
+        this.eggMoveDuration = 800;
+        break;
+      case (81 + offset * 15):
+        this.eggDuration = 1200;
+        this.eggMoveDuration = 600;
+        break;
+    }
  }
 
   generateRandomNest() {
@@ -65,26 +122,17 @@ export class MyComponent {
   }
 
   createEgg() {
-    if (this.eggs < 100) {
-      let newEgg = document.createElement('G-EGG') as HTMLGEggElement;
-      // newEgg.nest = 2;
-      newEgg.nest = this.generateRandomNest();
-      newEgg.wolfPosition = this.wolf.position;
-      this.eggsContainer.append(newEgg);
-      this.eggs++;
-    }
-  }
-
-  changeDuration() {
-    this.deleteTimer();
-    this.createTimer();
+    let newEgg = document.createElement('G-EGG') as HTMLGEggElement;
+    newEgg.nest = this.generateRandomNest();
+    newEgg.wolfPosition = this.wolf.position;
+    newEgg.eggMoveDuration = this.eggMoveDuration;
+    this.eggsContainer.append(newEgg);
+    this.eggs++;
   }
 
   createTimer() {
     this.gameTimer = window.setInterval(() => {
-      console.log('hi');
       this.createEgg();
-      console.log('egg', this.eggs);
     }, this.eggDuration);
   }
 
@@ -93,28 +141,31 @@ export class MyComponent {
   }
 
   resetGame() {
-    this.gameStarted = true;
+    this.gameStarted = false;
+    this.eggDuration = 6000;
+    this.eggMoveDuration = 1000;
+    this.isGameOver = false;
+    this.isWon = false;
+    this.paused = false;
+    this.eggs = 0;
+    this.eggsContainer.innerHTML = '';
     this.score = 0;
     this.lose = 0;
     this.loseContainer.innerHTML = '';
-    this.deleteTimer;
-    this.isGameOver = false;
-    this.eggs = 0;
-    this.eggsContainer.innerHTML = '';
-    this.paused = false;
-    this.eggDuration = 6000;
+    this.deleteTimer();
   }
 
   continueGame() {
     this.paused = false;
 
-    // this.createEgg();
     this.createTimer();
   }
 
-  startGame() {
+  startGame(isDiffucult) {
+    this.isDifficult  = isDiffucult;
     this.resetGame();
 
+    this.gameStarted = true;
     this.createEgg();
     this.createTimer();
   }
@@ -122,7 +173,6 @@ export class MyComponent {
   pauseGame() {
     this.paused = !this.paused;
     this.gamePaused.emit(this.paused);
-    console.log('PAUSED');
     this.paused ? this.deleteTimer() : this.continueGame();
   }
 
@@ -138,6 +188,9 @@ export class MyComponent {
   eggCatchedHandler(e) {
     if (e.detail.catched) {
       this.score++;
+      if (this.score === 100) {
+        this.isWon = true;
+      }
       e.detail.el.remove(); // TODO: remove states for broken
     } else {
       this.lose++;
@@ -152,38 +205,45 @@ export class MyComponent {
     return(
       <Host class="game-container">
         <div class="game-container-left">
-        <nav-button direction="left-top"></nav-button>
-        <nav-button direction="left-bottom"></nav-button>
-      </div>
+          <nav-button direction="left-top"></nav-button>
+          <nav-button direction="left-bottom"></nav-button>
+        </div>
 
-      <div class="game-container-center">
-        <div class="console"></div>
-        <div class="border">
-          <div class="border-left"></div>
-          <div class="border-center">
-            <div class="title">НУ, ПОГОДИ!</div>
+        <div class="game-container-center">
+          <div class="console"></div>
+          <div class="border">
+            <div class="border-left"></div>
+            <div class="border-center">
+              <div class="title">НУ, ПОГОДИ!</div>
+            </div>
+            <div class="border-right"></div>
           </div>
-          <div class="border-right"></div>
+          <div class="screen">
+            <div class="score">{ String(this.score).padStart(4, '0') } </div>
+            <div class="lose" ref={(el) => this.loseContainer = el as HTMLDivElement}></div>
+            {
+              this.isGameOver && <div class="game-over">GAME OVER</div>
+            }
+            {
+              this.isWon && <div class="game-won">YOU WON</div>
+            }
+            <div class={this.showRabbit ? 'rabbit' : ''}></div>
+            <g-wolf ref={(el) => this.wolf = el as HTMLGWolfElement}></g-wolf>
+            <div class="eggs-container" ref={(el) => this.eggsContainer = el as HTMLDivElement}></div>
+          </div>
         </div>
-        <div class="screen">
-          <div class="score">{ String(this.score).padStart(4, '0') } </div>
-          <div class="lose" ref={(el) => this.loseContainer = el as HTMLDivElement}></div>
-          {
-            this.isGameOver && <div class="game-over">GAME OVER</div>
-          }
-          <g-wolf ref={(el) => this.wolf = el as HTMLGWolfElement}></g-wolf>
-          <div class="eggs-container" ref={(el) => this.eggsContainer = el as HTMLDivElement}></div>
-        </div>
-      </div>
 
-      <div class="game-container-right">
-        <button onClick={ this.startGame.bind(this) }> НОВАЯ ИГРА</button>
-        { this.gameStarted &&
-            <button onClick={ this.pauseGame.bind(this) }> {this.paused? 'ПРОДОЛЖИТЬ' : 'ПАУЗА'} </button>
-        }
-        <nav-button direction="right-top"></nav-button>
-        <nav-button direction="right-bottom"></nav-button>
-      </div>
+        <div class="game-container-right">
+          <div class="button-container">
+            <button class="mode-button" onClick={ this.startGame.bind(this, true) }>ИГРА A</button>
+            <button class="mode-button" onClick={ this.startGame.bind(this, false) }>ИГРА Б</button>
+            { this.devMode && this.gameStarted &&
+                <button class="mode-button" onClick={ this.pauseGame.bind(this) }> {this.paused? 'ПРОДОЛЖИТЬ' : 'ПАУЗА'} </button>
+            }
+          </div>
+          <nav-button direction="right-top"></nav-button>
+          <nav-button direction="right-bottom"></nav-button>
+        </div>
       </Host>
     );
   }

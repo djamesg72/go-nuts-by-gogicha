@@ -11,8 +11,11 @@ import {
 } from './components/wolf/wolf.model';
 
 export namespace Components {
-  interface GApp {}
+  interface GApp {
+    'devMode': boolean;
+  }
   interface GEgg {
+    'eggMoveDuration': number;
     'nest': number;
     'wolfPosition': 'left-top' | 'left-bottom' | 'right-top' | 'right-bottom';
   }
@@ -81,10 +84,16 @@ declare global {
 
 declare namespace LocalJSX {
   interface GApp extends JSXBase.HTMLAttributes<HTMLGAppElement> {
+    'devMode'?: boolean;
     'onGameOver'?: (event: CustomEvent<void>) => void;
+    /**
+    * for dev-mode
+    */
     'onGamePaused'?: (event: CustomEvent<boolean>) => void;
+    'onGameWon'?: (event: CustomEvent<void>) => void;
   }
   interface GEgg extends JSXBase.HTMLAttributes<HTMLGEggElement> {
+    'eggMoveDuration'?: number;
     'nest'?: number;
     'onEggIsCathced'?: (event: CustomEvent<any>) => void;
     'wolfPosition'?: 'left-top' | 'left-bottom' | 'right-top' | 'right-bottom';

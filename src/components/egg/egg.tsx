@@ -1,4 +1,4 @@
-import { Component, Element, Prop, State, h, Host, Listen, Event, EventEmitter } from '@stencil/core';
+import { Component, Element, Prop, State, h, Host, Watch, Listen, Event, EventEmitter } from '@stencil/core';
 
 @Component({
   tag: 'g-egg',
@@ -10,8 +10,8 @@ export class MyComponent {
 
   @Prop({ mutable: true }) nest: number;
   @Prop() wolfPosition: 'left-top' | 'left-bottom' | 'right-top' | 'right-bottom';
+  @Prop() eggMoveDuration = 1000;
 
-  @State() eggMoveDuration = 1000;
   @State() step = 1;
 
   @Event() eggIsCathced: EventEmitter;
@@ -25,6 +25,13 @@ export class MyComponent {
     4: 'right-bottom',
   }
   isCatching: boolean;
+
+  @Watch('eggMoveDuration')
+  changeTimer() {
+    console.log('EGG change game duration EGG ', this.eggMoveDuration);
+    clearInterval(this.eggMoveTimer);
+    this.startEggMoving();
+  }
 
   checkCathcing(position) {
     return this.isCatching = this.nestTitle[this.nest] === position
@@ -41,24 +48,24 @@ export class MyComponent {
   }
 
   @Listen('gameOver', { target: 'document' })
-  gameOver() {
+  @Listen('gameWon', {target: 'document'})
+  deleteTimer() {
     clearInterval(this.eggMoveTimer);
   }
 
   @Listen('wolfDirectionChange', {target : 'document'})
   catchEggHandler(e) {
-    console.log('WOLf POS',this.nestTitle[this.nest],  e.detail);
     this.checkCathcing(e.detail);
   }
 
   startEggMoving() {
+    console.log('EGG duration EGG ', this.eggMoveDuration);
     this.eggMoveTimer = window.setInterval(() => {
         if (this.step === 6) {
           clearInterval(this.eggMoveTimer);
           this.el.remove;
         } else {
           if (this.step === 5) {
-            console.log('isCatching', this.isCatching);
             if (this.isCatching) {
               this.eggIsCathced.emit({
                 catched: true,
@@ -72,22 +79,8 @@ export class MyComponent {
             }
           }
           this.step++;
-          // console.log(this.step);
         }
     }, this.eggMoveDuration);
-  }
-
-  componentWillLoad() {
-    this.checkCathcing(this.wolfPosition);
-    this.generateStyleObject();
-  }
-
-  componentDidLoad() {
-    this.startEggMoving();
-  }
-
-  componentDidUnload() {
-    window.clearInterval(this.eggMoveTimer);
   }
 
   setDegree(degree)  {
@@ -95,6 +88,7 @@ export class MyComponent {
       return -1 * degree
     } else return degree
   }
+
   generateStyleObject() {
     let xSide = (this.nest === 1 || this.nest === 3)
       ? 'left'
@@ -137,6 +131,19 @@ export class MyComponent {
         display: 'none',
       }
     };
+  }
+
+  componentWillLoad() {
+    this.checkCathcing(this.wolfPosition);
+    this.generateStyleObject();
+  }
+
+  componentDidLoad() {
+    this.startEggMoving();
+  }
+
+  componentDidUnload() {
+    window.clearInterval(this.eggMoveTimer);
   }
 
   render() {
