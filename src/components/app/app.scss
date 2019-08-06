@@ -7,6 +7,7 @@
 :host(.game-container) {
   position: relative;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   width: 800px;
@@ -15,6 +16,21 @@
   border-radius: 12px;
   box-shadow: 8px 8px 2px 1px;
   box-sizing: border-box;
+
+  @media (max-width: 800px) {
+    width: 90%;
+    height: 90%;
+    justify-content: center;
+  }
+}
+
+.clearfix {
+  display: none;
+  @media (max-width: 800px) {
+    display: flex;
+    flex-basis: 100%;
+    max-width: 100%;
+  }
 }
 
 .game-container-left {
@@ -24,6 +40,12 @@
   flex-direction: column;
   align-items: center;
   margin-top: auto;
+
+  @media (max-width: 800px) {
+    order: 1;
+    flex: 0 1 50%;
+    margin-top: auto;
+  }
 }
 
 .game-container-right {
@@ -33,6 +55,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  @media (max-width: 800px) {
+    order: 1;
+    flex: 0 1 50%;
+    margin-top: 0;
+  }
 }
 
 .game-container-center {
@@ -41,6 +69,11 @@
   align-items: center;
   justify-content: center;
   padding: 0 38px;
+
+  @media (max-width: 800px) {
+    padding: 50px;
+    margin: auto;
+  }
 }
 
 .screen {
@@ -193,6 +226,16 @@
 
   button:not(:last-of-type) {
     margin-bottom: 16px;
+  }
+
+  @media (max-width: 800px) {
+    display: flex;
+    padding-top: 0;
+
+    button:not(:last-of-type) {
+      margin-bottom: 0;
+      margin-right: 8px;
+    }
   }
 }
 

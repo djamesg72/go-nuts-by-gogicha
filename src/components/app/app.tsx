@@ -232,6 +232,7 @@ export class MyComponent {
             <div class="eggs-container" ref={(el) => this.eggsContainer = el as HTMLDivElement}></div>
           </div>
         </div>
+        <div class="clearfix"></div>
 
         <div class="game-container-right">
           <div class="button-container">
