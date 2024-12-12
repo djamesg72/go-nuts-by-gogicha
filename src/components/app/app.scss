@@ -10,11 +10,11 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  width: 800px;
-  height: 450px;
-  background-color: #ececec;
+  // width: 800px;
+  // height: 450px;
+  // background-color: #ececec;
   border-radius: 12px;
-  box-shadow: 8px 8px 2px 1px;
+  // box-shadow: 8px 8px 2px 1px;
   box-sizing: border-box;
 
   @media (max-width: 800px) {
@@ -26,11 +26,6 @@
 
 .clearfix {
   display: none;
-  @media (max-width: 800px) {
-    display: flex;
-    flex-basis: 100%;
-    max-width: 100%;
-  }
 }
 
 .game-container-left {
@@ -80,6 +75,7 @@
   background-image: url('assets/img/background.jpg');
   width: 412px;
   height: 270px;
+  transform: scale(1.55, 1.77);
   position: relative;
   background-size: cover;
   background-repeat: no-repeat;

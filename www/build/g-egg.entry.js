@@ -1,4 +1,4 @@
-import { r as registerInstance, e as createEvent, h, f as Host, g as getElement } from './index-7b165c38.js';
+import { r as registerInstance, e as createEvent, h, f as Host, g as getElement } from './index-3102a2da.js';
 
 const eggCss = ":host{display:block;position:relative}:host img{position:absolute;transform-origin:center center;display:block}.bird-container{position:relative}.bird{position:absolute;display:block;width:59px;height:31px;animation-duration:3s;animation-fill-mode:forwards;animation-timing-function:step-start;animation-iteration-count:1;background-position-x:center;background-position-y:center;background-repeat:no-repeat}.bird-right{right:80px}.bird-left{left:80px}.egg{height:30px;width:30px;background-image:url(\"./assets/img/egg.png\");background-size:contain;position:absolute}";
 

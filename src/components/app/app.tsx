@@ -203,23 +203,26 @@ export class MyComponent {
     }
   }
 
+  @Listen('keydown', { target: 'window' })
+  handleKeyDown(event: KeyboardEvent) {
+    if (event.code === 'Space') {
+      console.log('Spacebar was pressed!');
+      this.startGame(true);
+    }
+  }
+
   render() {
     return(
       <Host class="game-container">
-        <div class="game-container-left">
-          <nav-button direction="left-top"></nav-button>
-          <nav-button direction="left-bottom"></nav-button>
-        </div>
-
         <div class="game-container-center">
           <div class="console"></div>
-          <div class="border">
+          {/* <div class="border">
             <div class="border-left"></div>
             <div class="border-center">
               <div class="title">Go Nuts for Gogicha</div>
             </div>
             <div class="border-right"></div>
-          </div>
+          </div> */}
           <div class="screen">
             {/* <div class="score">{ String(this.score).padStart(4, '0') } </div> */}
             <div class="score">{ String(this.score).padStart(3, '0') } </div>
@@ -236,17 +239,6 @@ export class MyComponent {
           </div>
         </div>
         <div class="clearfix"></div>
-
-        <div class="game-container-right">
-          <div class="button-container">
-            <button class="mode-button" onClick={ this.startGame.bind(this, true) }>Start</button>
-            { this.devMode && this.gameStarted &&
-                <button class="mode-button" onClick={ this.pauseGame.bind(this) }> {this.paused? 'Continue' : 'Pause'} </button>
-            }
-          </div>
-          <nav-button direction="right-top"></nav-button>
-          <nav-button direction="right-bottom"></nav-button>
-        </div>
       </Host>
     );
   }
