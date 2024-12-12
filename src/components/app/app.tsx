@@ -180,6 +180,8 @@ export class MyComponent {
     if (this.lose <= 3) {
       let img = document.createElement('IMG') as HTMLImageElement;
       img.src = "assets/img/minuspoint.png";
+      img.height = 30;
+      img.width = 30;
       this.loseContainer.append(img);
     }
   }
@@ -214,15 +216,16 @@ export class MyComponent {
           <div class="border">
             <div class="border-left"></div>
             <div class="border-center">
-              <div class="title">НУ, ПОГОДИ!</div>
+              <div class="title">Go Nuts for Gogicha</div>
             </div>
             <div class="border-right"></div>
           </div>
           <div class="screen">
-            <div class="score">{ String(this.score).padStart(4, '0') } </div>
+            {/* <div class="score">{ String(this.score).padStart(4, '0') } </div> */}
+            <div class="score">{ String(this.score).padStart(3, '0') } </div>
             <div class="lose" ref={(el) => this.loseContainer = el as HTMLDivElement}></div>
             {
-              this.isGameOver && <div class="game-over">GAME OVER</div>
+              this.isGameOver && <div class="game-over">შენ მეისპე</div>
             }
             {
               this.isWon && <div class="game-won">YOU WON</div>
@@ -236,10 +239,9 @@ export class MyComponent {
 
         <div class="game-container-right">
           <div class="button-container">
-            <button class="mode-button" onClick={ this.startGame.bind(this, true) }>ИГРА A</button>
-            <button class="mode-button" onClick={ this.startGame.bind(this, false) }>ИГРА Б</button>
+            <button class="mode-button" onClick={ this.startGame.bind(this, true) }>Start</button>
             { this.devMode && this.gameStarted &&
-                <button class="mode-button" onClick={ this.pauseGame.bind(this) }> {this.paused? 'ПРОДОЛЖИТЬ' : 'ПАУЗА'} </button>
+                <button class="mode-button" onClick={ this.pauseGame.bind(this) }> {this.paused? 'Continue' : 'Pause'} </button>
             }
           </div>
           <nav-button direction="right-top"></nav-button>

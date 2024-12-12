@@ -81,6 +81,8 @@
   width: 412px;
   height: 270px;
   position: relative;
+  background-size: cover;
+  background-repeat: no-repeat;
   box-shadow: inset 0px 0px 7px 1px rgba(0, 0, 0, 0.3);
   border: solid 2px rgba(0, 0, 0, 0.3);
 }
@@ -141,7 +143,8 @@
 .score {
   position: absolute;
   top: 15px;
-  right: 80px;
+  left: 50%;
+  transform: translateX(-50%);
   font-family: 'Clock';
   font-size: 40px;
 }
@@ -150,7 +153,8 @@
   position: absolute;
   width: 94px;
   top: 55px;
-  right: 80px;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   flex-wrap: nowrap;
 
@@ -196,11 +200,13 @@
 .rabbit {
   position: absolute;
   display: block;
+  background-size: contain;
+  background-repeat: no-repeat;
   width: 105px;
   height: 98px;
   margin-left: 53px;
   animation-name: rabbit;
-  animation-duration: 1s;
+  animation-duration: 2s;
   animation-fill-mode: forwards;
   animation-iteration-count: 4;
 }

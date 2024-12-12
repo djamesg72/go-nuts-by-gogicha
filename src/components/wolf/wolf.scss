@@ -18,19 +18,27 @@ div {
 .left-top {
   background-image: url('assets/img/left-top.png');
   transition: all 0.4s ease;
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 
 .left-bottom {
   background-image: url('assets/img/left-bottom.png');
   transition: all 0.4s ease;
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 
 .right-top {
   background-image: url('assets/img/right-top.png');
   transition: all 0.4s ease;
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 
 .right-bottom {
   background-image: url('assets/img/right-bottom.png');
   transition: all 0.4s ease;
+  background-size: contain;
+  background-repeat: no-repeat;
 }

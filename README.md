@@ -1,6 +1,8 @@
-**Игра "Ну, погоди".**
+npm install
 
-Минимальное разрешение экрана - '576px'
 
-[Запустить игру](https://jvelichko.github.io/wolf-and-eggs/)
+npm run start
+for starting application
 
+npm run build
+for getting a build version for application

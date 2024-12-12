@@ -36,7 +36,7 @@ export class MyComponent {
     this.startEggMoving();
   }
 
-  checkCathcing(position) {
+  checkCatching(position) {
     return this.isCatching = this.nestTitle[this.nest] === position
       ? true : false;
   }
@@ -58,7 +58,7 @@ export class MyComponent {
 
   @Listen('wolfDirectionChange', {target : 'document'})
   catchEggHandler(e) {
-    this.checkCathcing(e.detail);
+    this.checkCatching(e.detail);
   }
 
   showBird() {
@@ -147,7 +147,7 @@ export class MyComponent {
   }
 
   componentWillLoad() {
-    this.checkCathcing(this.wolfPosition);
+    this.checkCatching(this.wolfPosition);
     this.generateStyleObject();
   }
 
@@ -162,7 +162,7 @@ export class MyComponent {
   render() {
     return(
       <Host>
-        <img style={this.stepStyleObject[this.step]} src="assets/img/egg.png" alt="egg"/>
+        <div class="egg" style={this.stepStyleObject[this.step]}></div>
         <div class="bird-container">
           <div class={ `bird ${this.birdIsShown ? `bird-${this.xSide}` : ''}` }></div>
         </div>
