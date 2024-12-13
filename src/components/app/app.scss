@@ -176,7 +176,7 @@
 }
 
 .game-over {
-  color: red;
+  color: white;
   background: brown;
   transform: translateY(-35px);
   line-height: 70px;
@@ -206,7 +206,7 @@
   height: 98px;
   margin-left: 53px;
   animation-name: rabbit;
-  animation-duration: 2s;
+  animation-duration: 3.5s;
   animation-fill-mode: forwards;
   animation-iteration-count: 4;
 }
