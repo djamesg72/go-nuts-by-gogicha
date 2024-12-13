@@ -13,6 +13,7 @@ export const config: Config = {
     },
     {
       type: 'www',
+      baseUrl: 'https://djamesg72.github.io/wolf-and-eggs/',
       serviceWorker: null // disable service workers,
     }
   ],
