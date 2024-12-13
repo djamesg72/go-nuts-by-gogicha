@@ -1,0 +1,16 @@
+{
+  "entries": [
+    "./components/app/app.js",
+    "./components/button/button.js",
+    "./components/egg/egg.js",
+    "./components/my-component/my-component.js",
+    "./components/wolf/wolf.js"
+  ],
+  "compiler": {
+    "name": "@stencil/core",
+    "version": "1.17.4",
+    "typescriptVersion": "3.9.7"
+  },
+  "collections": [],
+  "bundles": []
+}
