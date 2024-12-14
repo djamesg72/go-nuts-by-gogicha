@@ -85,6 +85,7 @@
   background-repeat: no-repeat;
   box-shadow: inset 0px 0px 7px 1px rgba(0, 0, 0, 0.3);
   border: solid 2px rgba(0, 0, 0, 0.3);
+  z-index: 200;
 }
 
 .console {
@@ -184,11 +185,15 @@
 
 .game-won {
   color: white;
-  background-image: url('assets/img/win.gif');
+  background-image: url('assets/img/win2.gif');
   height: 100%;
   transform: translateY(-133px);
   background-size: cover;
   background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: end;
+  padding-bottom: 50px;
 }
 
 .eggs-container {

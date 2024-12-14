@@ -11,6 +11,7 @@
 
 .bird-container {
   position: relative;
+  width: 100%;
 }
 
 .bird {
@@ -28,11 +29,13 @@
 
 .bird-right {
   right: 80px;
+  top: 200px;
   animation-name: donutCrash;
 }
 
 .bird-left {
   left: 80px;
+  top: 200px;
   animation-name: donutCrash;
 }
 
