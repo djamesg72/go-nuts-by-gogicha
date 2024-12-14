@@ -210,13 +210,6 @@ export class MyComponent {
     }
   }
 
-  @Listen('keydown', { target: 'window' })
-  handleKeyDown(event: KeyboardEvent) {
-    if (event.code === 'Space') {
-      console.log('Spacebar was pressed!');
-      this.startGame(true);
-    }
-  }
 
   render() {
     return(
