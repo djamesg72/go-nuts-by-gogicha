@@ -170,6 +170,13 @@ export class MyComponent {
     this.createTimer();
   }
 
+  @Listen('keydown', {target: 'document' })
+  handleKeyDown(ev: KeyboardEvent) {
+    if (ev.code == 'Space') {
+      this.startGame(true);
+    }
+  }
+
   pauseGame() {
     this.paused = !this.paused;
     this.gamePaused.emit(this.paused);
@@ -190,7 +197,7 @@ export class MyComponent {
   eggCatchedHandler(e) {
     if (e.detail.catched) {
       this.score++;
-      if (this.score === 100) {
+      if (this.score === 51) {
         this.isWon = true;
       }
       e.detail.el.remove();
